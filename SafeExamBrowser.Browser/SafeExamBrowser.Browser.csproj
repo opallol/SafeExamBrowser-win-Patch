@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BrowserApplication.cs" />
+    <Compile Include="HiddenBrowserManager.cs" />
     <Compile Include="BrowserApplicationContext.cs" />
     <Compile Include="BrowserWindow.cs" />
     <Compile Include="BrowserWindowContext.cs" />
@@ -111,7 +112,12 @@
     <Compile Include="Handlers\DownloadHandler.cs" />
     <Compile Include="Handlers\DragHandler.cs" />
     <Compile Include="Handlers\FocusHandler.cs" />
+    <Compile Include="Handlers\HiddenBrowserPermissionHandler.cs" />
+    <Compile Include="Handlers\HiddenBrowserRenderProcessMessageHandler.cs" />
+    <Compile Include="Handlers\HiddenBrowserRequestHandler.cs" />
+    <Compile Include="Handlers\HiddenBrowserResourceHandler.cs" />
     <Compile Include="Handlers\KeyboardHandler.cs" />
+    <Compile Include="Handlers\PermissionHandler.cs" />
     <Compile Include="Handlers\RenderProcessMessageHandler.cs" />
     <Compile Include="Handlers\RequestHandler.cs" />
     <Compile Include="Handlers\ResourceHandler.cs" />
@@ -233,6 +239,14 @@
       <Project>{7016f080-9aa5-41b2-a225-385ad877c171}</Project>
       <Name>SafeExamBrowser.WindowsApi.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SafeExamBrowser.WindowsApi\SafeExamBrowser.WindowsApi.csproj">
+      <Project>{73724659-4150-4792-A94E-42F5F3C1B696}</Project>
+      <Name>SafeExamBrowser.WindowsApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SafeExamBrowser.SystemComponents.Contracts\SafeExamBrowser.SystemComponents.Contracts.csproj">
+      <Project>{903129C6-E236-493B-9AD6-C6A57F647A3A}</Project>
+      <Name>SafeExamBrowser.SystemComponents.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\BlockedContent.html" />
@@ -244,6 +258,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\Api.js" />
+    <EmbeddedResource Include="Content\CameraPolyfill.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\Clipboard.js" />

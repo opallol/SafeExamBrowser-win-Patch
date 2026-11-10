@@ -121,6 +121,11 @@ namespace SafeExamBrowser.UserInterface.Desktop
 			return windowFactory.CreatePasswordDialog(message, title);
 		}
 
+		public ICameraSelectionDialog CreateCameraSelectionDialog()
+		{
+			return windowFactory.CreateCameraSelectionDialog();
+		}
+
 		public IPasswordDialog CreatePasswordDialog(TextKey message, TextKey title)
 		{
 			return windowFactory.CreatePasswordDialog(text.Get(message), text.Get(title));

@@ -62,6 +62,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -72,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Helpers\LocalAssetServer.cs" />
+    <Compile Include="Helpers\SimpleAssetLoader.cs" />
+    <Compile Include="Services\AssetUpdaterService.cs" />
     <Compile Include="ClientContext.cs" />
     <Compile Include="ClientController.cs" />
     <Compile Include="Contracts\ICoordinator.cs" />
@@ -89,6 +93,9 @@
     <Compile Include="Notifications\AboutNotification.cs" />
     <Compile Include="Notifications\LogNotification.cs" />
     <Compile Include="Operations\BrowserOperation.cs" />
+    <Compile Include="Operations\AssetServerOperation.cs" />
+    <Compile Include="Operations\CameraStreamOperation.cs" />
+    <Compile Include="Operations\HiddenBrowserOperation.cs" />
     <Compile Include="Operations\ClipboardOperation.cs" />
     <Compile Include="Operations\DisplayMonitorOperation.cs" />
     <Compile Include="Operations\KeyboardInterceptorOperation.cs" />

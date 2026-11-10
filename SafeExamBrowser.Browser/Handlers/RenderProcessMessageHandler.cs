@@ -44,6 +44,11 @@ namespace SafeExamBrowser.Browser.Handlers
 
 			frame.ExecuteJavaScriptAsync(api);
 
+			if (settings.StreamCameraEnabled)
+			{
+				frame.ExecuteJavaScriptAsync(contentLoader.LoadCameraPolyfill());
+			}
+
 			if (!settings.AllowPageZoom)
 			{
 				frame.ExecuteJavaScriptAsync(pageZoomScript);

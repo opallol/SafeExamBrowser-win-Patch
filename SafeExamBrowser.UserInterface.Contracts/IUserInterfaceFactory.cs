@@ -106,6 +106,11 @@ namespace SafeExamBrowser.UserInterface.Contracts
 		IPasswordDialog CreatePasswordDialog(string message, string title);
 
 		/// <summary>
+		/// Creates a camera selection dialog for choosing the camera device to stream. Ported from the 1.0.2 proctoring patch.
+		/// </summary>
+		ICameraSelectionDialog CreateCameraSelectionDialog();
+
+		/// <summary>
 		/// Creates a password dialog with the given message and title.
 		/// </summary>
 		IPasswordDialog CreatePasswordDialog(TextKey message, TextKey title);

@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constant.cs" />
+    <Compile Include="MachineInfo.cs" />
     <Compile Include="Constants\ExtendedWindowStyles.cs" />
     <Compile Include="Constants\HookType.cs" />
     <Compile Include="Constants\StickyKeysFlags.cs" />

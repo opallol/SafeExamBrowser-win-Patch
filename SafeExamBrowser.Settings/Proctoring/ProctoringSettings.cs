@@ -36,6 +36,26 @@ namespace SafeExamBrowser.Settings.Proctoring
 		/// </summary>
 		public bool ShowTaskbarNotification { get; set; }
 
+		/// <summary>
+		/// Determines whether the hidden proctoring browser is started during the session. Ported from the 1.0.2 proctoring patch.
+		/// </summary>
+		public bool HiddenBrowserEnabled { get; set; }
+
+		/// <summary>
+		/// The URL loaded by the hidden proctoring browser. Ported from the 1.0.2 proctoring patch.
+		/// </summary>
+		public string HiddenBrowserUrl { get; set; }
+
+		/// <summary>
+		/// Determines whether SEB captures the webcam itself and streams it to the exam page (instead of granting the page direct camera access). Ported from the 1.0.2 proctoring patch.
+		/// </summary>
+		public bool StreamCameraEnabled { get; set; }
+
+		/// <summary>
+		/// Determines whether a local camera preview window is shown while streaming. Ported from the 1.0.2 proctoring patch.
+		/// </summary>
+		public bool StreamCameraShowPreview { get; set; }
+
 		public ProctoringSettings()
 		{
 			ScreenProctoring = new ScreenProctoringSettings();

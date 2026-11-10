@@ -71,6 +71,7 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 			internal const string QuitUrlConfirmation = "quitURLConfirm";
 			internal const string ResetOnQuitUrl = "quitURLRestart";
 			internal const string SendCustomHeaders = "sendBrowserExamKey";
+			internal const string SendMachineId = "sendMachineId";
 			internal const string ShowFileSystemElementPath = "browserShowFileSystemElementPath";
 			internal const string ShowReloadButton = "showReloadButton";
 			internal const string ShowToolbar = "enableBrowserWindowToolbar";
@@ -233,6 +234,10 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 		{
 			internal const string ShowDisclaimer = "showProctoringDisclaimer";
 			internal const string ShowTaskbarNotification = "showProctoringViewButton";
+			internal const string HiddenBrowserEnabled = "hiddenProctoringEnabled";
+			internal const string HiddenBrowserUrl = "hiddenProctoringUrl";
+			internal const string StreamCameraEnabled = "enableStreamCamera";
+			internal const string StreamCameraShowPreview = "streamCameraShowPreview";
 
 			internal static class ScreenProctoring
 			{

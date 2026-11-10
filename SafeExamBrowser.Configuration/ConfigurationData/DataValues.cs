@@ -240,6 +240,8 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 			settings.Browser.ResetOnQuitUrl = false;
 			settings.Browser.SendBrowserExamKey = false;
 			settings.Browser.SendConfigurationKey = false;
+			settings.Browser.SendMachineId = false;
+			settings.Browser.StreamCameraEnabled = false;
 			settings.Browser.ShowFileSystemElementPath = true;
 			settings.Browser.StartUrl = "https://www.safeexambrowser.org/start";
 			settings.Browser.UseCustomUserAgent = false;
@@ -299,6 +301,10 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 			settings.Proctoring.ScreenProctoring.MetaData.CaptureWindowTitle = true;
 			settings.Proctoring.ShowDisclaimer = true;
 			settings.Proctoring.ShowTaskbarNotification = true;
+			settings.Proctoring.HiddenBrowserEnabled = false;
+			settings.Proctoring.HiddenBrowserUrl = null;
+			settings.Proctoring.StreamCameraEnabled = false;
+			settings.Proctoring.StreamCameraShowPreview = true;
 
 			settings.Security.AllowApplicationLogAccess = false;
 			settings.Security.AllowReconfiguration = false;

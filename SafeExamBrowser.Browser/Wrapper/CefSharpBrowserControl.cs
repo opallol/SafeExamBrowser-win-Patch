@@ -47,8 +47,13 @@ namespace SafeExamBrowser.Browser.Wrapper
 		public event TakeFocusEventHandler TakeFocus;
 		public event UncaughtExceptionEventHandler UncaughtExceptionEvent;
 
-		public CefSharpBrowserControl(ILifeSpanHandler lifeSpanHandler, string url) : base(url)
+		public CefSharpBrowserControl(ILifeSpanHandler lifeSpanHandler, string url, IPermissionHandler permissionHandler = null) : base(url)
 		{
+			if (permissionHandler != null)
+			{
+				PermissionHandler = permissionHandler;
+			}
+
 			DialogHandler = new DialogHandlerSwitch();
 			DisplayHandler = new DisplayHandlerSwitch();
 			DownloadHandler = new DownloadHandlerSwitch();

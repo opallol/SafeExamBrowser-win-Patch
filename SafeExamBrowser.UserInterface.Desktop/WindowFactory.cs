@@ -101,6 +101,11 @@ namespace SafeExamBrowser.UserInterface.Desktop
 			return Application.Current.Dispatcher.Invoke(() => Guard(new PasswordDialog(message, title, text)));
 		}
 
+		internal ICameraSelectionDialog CreateCameraSelectionDialog()
+		{
+			return Application.Current.Dispatcher.Invoke(() => Guard(new CameraSelectionDialog()));
+		}
+
 		internal IPasswordDialog CreatePasswordDialog(TextKey message, TextKey title)
 		{
 			return Application.Current.Dispatcher.Invoke(() => Guard(new PasswordDialog(text.Get(message), text.Get(title), text)));

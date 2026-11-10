@@ -66,6 +66,50 @@ namespace SafeExamBrowser.Configuration.ConfigurationData.DataMapping
 				case Keys.Proctoring.ShowTaskbarNotification:
 					MapShowTaskbarNotification(settings, value);
 					break;
+				case Keys.Proctoring.HiddenBrowserEnabled:
+					MapHiddenBrowserEnabled(settings, value);
+					break;
+				case Keys.Proctoring.HiddenBrowserUrl:
+					MapHiddenBrowserUrl(settings, value);
+					break;
+				case Keys.Proctoring.StreamCameraEnabled:
+					MapStreamCameraEnabled(settings, value);
+					break;
+				case Keys.Proctoring.StreamCameraShowPreview:
+					MapStreamCameraShowPreview(settings, value);
+					break;
+			}
+		}
+
+		private void MapHiddenBrowserEnabled(AppSettings settings, object value)
+		{
+			if (value is bool enabled)
+			{
+				settings.Proctoring.HiddenBrowserEnabled = enabled;
+			}
+		}
+
+		private void MapHiddenBrowserUrl(AppSettings settings, object value)
+		{
+			if (value is string url)
+			{
+				settings.Proctoring.HiddenBrowserUrl = url;
+			}
+		}
+
+		private void MapStreamCameraEnabled(AppSettings settings, object value)
+		{
+			if (value is bool enabled)
+			{
+				settings.Proctoring.StreamCameraEnabled = enabled;
+			}
+		}
+
+		private void MapStreamCameraShowPreview(AppSettings settings, object value)
+		{
+			if (value is bool show)
+			{
+				settings.Proctoring.StreamCameraShowPreview = show;
 			}
 		}
 

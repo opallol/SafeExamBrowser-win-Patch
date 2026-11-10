@@ -153,6 +153,9 @@ namespace SafeExamBrowser.Configuration.ConfigurationData.DataMapping
 				case Keys.Browser.ResetOnQuitUrl:
 					MapResetOnQuitUrl(settings, value);
 					break;
+				case Keys.Browser.SendMachineId:
+					MapSendMachineId(settings, value);
+					break;
 				case Keys.Browser.SendCustomHeaders:
 					MapSendCustomHeaders(settings, value);
 					break;
@@ -495,6 +498,14 @@ namespace SafeExamBrowser.Configuration.ConfigurationData.DataMapping
 			{
 				settings.Browser.SendConfigurationKey = send;
 				settings.Browser.SendBrowserExamKey = send;
+			}
+		}
+
+		private void MapSendMachineId(AppSettings settings, object value)
+		{
+			if (value is bool send)
+			{
+				settings.Browser.SendMachineId = send;
 			}
 		}
 

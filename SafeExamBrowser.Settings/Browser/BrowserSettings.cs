@@ -184,6 +184,16 @@ namespace SafeExamBrowser.Settings.Browser
 		public bool SendBrowserExamKey { get; set; }
 
 		/// <summary>
+		/// Determines whether the machine identifier header (motherboard serial) is sent with HTTP requests. Ported from the 1.0.2 proctoring patch.
+		/// </summary>
+		public bool SendMachineId { get; set; }
+
+		/// <summary>
+		/// Browser-layer mirror of <see cref="SafeExamBrowser.Settings.Proctoring.ProctoringSettings.StreamCameraEnabled"/>, copied by the client's browser operation so browser handlers can read it without referencing proctoring settings.
+		/// </summary>
+		public bool StreamCameraEnabled { get; set; }
+
+		/// <summary>
 		/// Determines whether the user will be able to see the path of a file system element in the file system dialog (e.g. when down- or uploading a file).
 		/// </summary>
 		public bool ShowFileSystemElementPath { get; set; }

@@ -130,6 +130,7 @@ namespace SafeExamBrowser.Browser
 			var focusHandler = new FocusHandler();
 			var javaScriptDialogHandler = new JavaScriptDialogHandler();
 			var keyboardHandler = new KeyboardHandler();
+			var permissionHandler = new PermissionHandler(Settings, logger.CloneFor($"{nameof(PermissionHandler)} #{Id}"));
 			var renderHandler = new RenderProcessMessageHandler(appConfig, clipboard, keyGenerator, Settings, context.Text);
 			var requestFilter = new RequestFilter();
 			var requestLogger = logger.CloneFor($"{nameof(RequestHandler)} #{Id}");
@@ -149,7 +150,7 @@ namespace SafeExamBrowser.Browser
 			if (IsMainWindow)
 			{
 				responsibilities.Delegate(WindowTask.InitializeLifeSpanHandler);
-				cefSharpControl = new CefSharpBrowserControl(context.LifeSpanHandler, context.StartUrl);
+				cefSharpControl = new CefSharpBrowserControl(context.LifeSpanHandler, context.StartUrl, permissionHandler);
 			}
 			else
 			{
