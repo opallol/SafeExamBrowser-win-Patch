@@ -66,6 +66,12 @@ namespace SafeExamBrowser.Browser.Responsibilities.Browser
 			settings.CefCommandLineArgs.Add("touch-events", "enabled");
 			settings.CefCommandLineArgs.Add("use-fake-ui-for-media-stream");
 
+			// Ported from the 1.0.2 proctoring patch: keep capture/streaming running while the window is occluded or backgrounded.
+			settings.CefCommandLineArgs.Add("autoplay-policy", "no-user-gesture-required");
+			settings.CefCommandLineArgs.Add("disable-background-timer-throttling");
+			settings.CefCommandLineArgs.Add("disable-renderer-backgrounding");
+			settings.CefCommandLineArgs.Add("disable-backgrounding-occluded-windows");
+
 			if (!Settings.AllowPageZoom)
 			{
 				settings.CefCommandLineArgs.Add("disable-pinch");
