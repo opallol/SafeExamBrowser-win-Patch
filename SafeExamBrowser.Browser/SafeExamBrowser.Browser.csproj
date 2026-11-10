@@ -233,6 +233,10 @@
       <Project>{7016f080-9aa5-41b2-a225-385ad877c171}</Project>
       <Name>SafeExamBrowser.WindowsApi.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SafeExamBrowser.WindowsApi\SafeExamBrowser.WindowsApi.csproj">
+      <Project>{73724659-4150-4792-A94E-42F5F3C1B696}</Project>
+      <Name>SafeExamBrowser.WindowsApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\BlockedContent.html" />

@@ -44,7 +44,23 @@ namespace SafeExamBrowser.Browser.Filters
 
 		public FilterResult Process(Request request)
 		{
-			return FilterResult.Allow;
+			foreach (var blockRule in blockRules)
+			{
+				if (blockRule.IsMatch(request))
+				{
+					return FilterResult.Block;
+				}
+			}
+
+			foreach (var allowRule in allowRules)
+			{
+				if (allowRule.IsMatch(request))
+				{
+					return FilterResult.Allow;
+				}
+			}
+
+			return Default;
 		}
 	}
 }

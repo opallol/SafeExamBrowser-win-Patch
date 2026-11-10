@@ -24,6 +24,7 @@ using SafeExamBrowser.Logging.Contracts;
 using SafeExamBrowser.Settings;
 using SafeExamBrowser.Settings.Browser;
 using SafeExamBrowser.Settings.Browser.Filter;
+using SafeExamBrowser.WindowsApi;
 using BrowserSettings = SafeExamBrowser.Settings.Browser.BrowserSettings;
 using Request = SafeExamBrowser.Browser.Contracts.Filters.Request;
 
@@ -70,12 +71,55 @@ namespace SafeExamBrowser.Browser.Handlers
 
 		protected override IResourceHandler GetResourceHandler(IWebBrowser webBrowser, IBrowser browser, IFrame frame, IRequest request)
 		{
+			if (IsSebApiUrl(request.Url))
+			{
+				return HandleSebApiRequest(request.Url);
+			}
+
 			if (Block(request))
 			{
 				return ResourceHandlerFor(request.ResourceType);
 			}
 
 			return base.GetResourceHandler(webBrowser, browser, frame, request);
+		}
+
+		private bool IsSebApiUrl(string url)
+		{
+			return url?.StartsWith("seb-api://", StringComparison.OrdinalIgnoreCase) ?? false;
+		}
+
+		private IResourceHandler HandleSebApiRequest(string url)
+		{
+			try
+			{
+				var endpoint = new Uri(url).Host.ToLowerInvariant();
+				string json;
+
+				switch (endpoint)
+				{
+					case "processes":
+						json = MachineInfo.GetProcessesForApi();
+						logger.Debug("Serving seb-api://processes");
+						break;
+					case "services":
+						json = MachineInfo.GetServicesForApi();
+						logger.Debug("Serving seb-api://services");
+						break;
+					default:
+						json = "{\"error\":\"Unknown endpoint\",\"endpoint\":\"" + endpoint + "\",\"available\":[\"processes\",\"services\"]}";
+						logger.Warn("Unknown seb-api endpoint: " + endpoint);
+						break;
+				}
+
+				return CefSharp.ResourceHandler.FromString(json, System.Text.Encoding.UTF8, true, "application/json");
+			}
+			catch (Exception e)
+			{
+				logger.Error("Error handling seb-api request: " + url, e);
+
+				return CefSharp.ResourceHandler.FromString("{\"error\":\"Internal error\",\"message\":\"" + e.Message.Replace("\\", "\\\\").Replace("\"", "\\\"") + "\"}", System.Text.Encoding.UTF8, true, "application/json");
+			}
 		}
 
 		protected override CefReturnValue OnBeforeResourceLoad(IWebBrowser webBrowser, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback)
@@ -140,6 +184,11 @@ namespace SafeExamBrowser.Browser.Handlers
 				if (settings.SendBrowserExamKey)
 				{
 					headers["X-SafeExamBrowser-RequestHash"] = keyGenerator.CalculateBrowserExamKeyHash(settings.ConfigurationKey, settings.BrowserExamKeySalt, request.Url);
+				}
+
+				if (settings.SendMachineId)
+				{
+					headers["X-SafeExamBrowser-MachineSerialNumber"] = MachineInfo.GetMotherboardSerialNumber();
 				}
 
 				request.Headers = headers;
