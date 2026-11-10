@@ -21,6 +21,12 @@ $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 Set-Location $root
 
+function Invoke-Checked {
+    param([string]$File, [string[]]$Args, [string]$What)
+    & $File @Args
+    if ($LASTEXITCODE -ne 0) { throw "$What failed (exit $LASTEXITCODE)." }
+}
+
 # --- Locate tools -----------------------------------------------------------
 $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
 $vs = & $vswhere -latest -products * -property installationPath
@@ -44,26 +50,25 @@ $wixProps = @(
     "-p:SolutionDir=$root\"
 )
 
-function Build-Platform([string]$plat) {
-    Write-Host "`n=== Restoring + building application ($plat) ===" -ForegroundColor Cyan
-    & $nuget restore $sln
+# Building Setup.wixproj builds its application ProjectReferences (Runtime, Client, Service,
+# ResetUtility, SebWindowsConfig) automatically, so we do not build the whole solution here
+# (that would also drag in the WiX projects without the WiX props and fail).
+function Build-Setup([string]$plat) {
+    Write-Host "`n=== Restore + Setup.msi ($plat) ===" -ForegroundColor Cyan
+    Invoke-Checked $nuget @('restore', $sln) "nuget restore"
     # PackageReference projects (non-SDK csproj) need a RID-aware restore:
     foreach ($p in 'SafeExamBrowser.SystemComponents', 'SafeExamBrowser.Integrity') {
-        & $msbuild "$p\$p.csproj" -t:Restore -p:Configuration=Release -p:Platform=$plat -p:RuntimeIdentifier=win-$plat -v:q -nologo
+        Invoke-Checked $msbuild @("$p\$p.csproj", '-t:Restore', '-p:Configuration=Release', "-p:Platform=$plat", "-p:RuntimeIdentifier=win-$plat", '-v:q', '-nologo') "restore $p ($plat)"
     }
-    & $msbuild $sln -t:Build -p:Configuration=Release -p:Platform=$plat -m -nologo
-
-    Write-Host "=== Building Setup.msi ($plat) ===" -ForegroundColor Cyan
-    & $msbuild 'Setup\Setup.wixproj' -t:Build -p:Configuration=Release -p:Platform=$plat @wixProps -nologo
+    Invoke-Checked $msbuild (@('Setup\Setup.wixproj', '-t:Rebuild', '-p:Configuration=Release', "-p:Platform=$plat", '-m', '-nologo') + $wixProps) "Setup.msi ($plat)"
 }
 
-Build-Platform 'x64'
+Build-Setup 'x64'
 
 if (-not $NoBundle) {
-    Build-Platform 'x86'   # the bundle embeds both the x64 and x86 MSIs
-
-    Write-Host "`n=== Building SetupBundle.exe ===" -ForegroundColor Cyan
-    & $msbuild 'SetupBundle\SetupBundle.wixproj' -t:Build -p:Configuration=Release -p:Platform=x86 -p:SignOutput=false @wixProps -nologo
+    Build-Setup 'x86'   # the bundle embeds both the x64 and x86 MSIs
+    Write-Host "`n=== SetupBundle.exe ===" -ForegroundColor Cyan
+    Invoke-Checked $msbuild (@('SetupBundle\SetupBundle.wixproj', '-t:Rebuild', '-p:Configuration=Release', '-p:Platform=x86', '-p:SignOutput=false', '-m', '-nologo') + $wixProps) "SetupBundle.exe"
 }
 
 Write-Host "`n=== Done ===" -ForegroundColor Green
