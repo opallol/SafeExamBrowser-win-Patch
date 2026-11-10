@@ -177,6 +177,7 @@ namespace SafeExamBrowser.Client
 			operations.Enqueue(new ApplicationsOperation(context, applicationFactory, fileSystemDialog, logger, messageBox, applicationMonitor, splashScreen, text));
 			operations.Enqueue(new DisplayMonitorOperation(context, displayMonitor, logger, taskbar));
 			operations.Enqueue(new LazyInitializationOperation(BuildShellOperation));
+			operations.Enqueue(new AssetServerOperation(context, ModuleLogger(nameof(AssetServerOperation)), messageBox, splashScreen));
 			operations.Enqueue(new LazyInitializationOperation(BuildCameraStreamOperation));
 			operations.Enqueue(new LazyInitializationOperation(BuildBrowserOperation));
 			operations.Enqueue(new LazyInitializationOperation(BuildHiddenBrowserOperation));
