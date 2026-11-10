@@ -178,6 +178,9 @@
     <Compile Include="Windows\CredentialsDialog.xaml.cs">
       <DependentUpon>CredentialsDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\CameraSelectionDialog.xaml.cs">
+      <DependentUpon>CameraSelectionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PasswordDialog.xaml.cs">
       <DependentUpon>PasswordDialog.xaml</DependentUpon>
     </Compile>
@@ -546,6 +549,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\CredentialsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\CameraSelectionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

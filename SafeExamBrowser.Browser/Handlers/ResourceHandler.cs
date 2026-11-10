@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.Net;
 using System.Net.Mime;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ using SafeExamBrowser.Logging.Contracts;
 using SafeExamBrowser.Settings;
 using SafeExamBrowser.Settings.Browser;
 using SafeExamBrowser.Settings.Browser.Filter;
+using SafeExamBrowser.SystemComponents.Contracts.Camera;
 using SafeExamBrowser.WindowsApi;
 using BrowserSettings = SafeExamBrowser.Settings.Browser.BrowserSettings;
 using Request = SafeExamBrowser.Browser.Contracts.Filters.Request;
@@ -44,6 +46,11 @@ namespace SafeExamBrowser.Browser.Handlers
 
 		private IResourceHandler contentHandler;
 		private IResourceHandler pageHandler;
+
+		/// <summary>
+		/// Camera service used to serve the streamed camera snapshot. Set by the client's camera stream operation. Ported from the 1.0.2 proctoring patch.
+		/// </summary>
+		internal static ICameraService CameraService { get; set; }
 
 		internal event UserIdentifierDetectedEventHandler UserIdentifierDetected;
 
@@ -76,6 +83,11 @@ namespace SafeExamBrowser.Browser.Handlers
 				return HandleSebApiRequest(request.Url);
 			}
 
+			if (IsCameraSnapshotUrl(request.Url))
+			{
+				return HandleCameraSnapshot();
+			}
+
 			if (Block(request))
 			{
 				return ResourceHandlerFor(request.ResourceType);
@@ -87,6 +99,23 @@ namespace SafeExamBrowser.Browser.Handlers
 		private bool IsSebApiUrl(string url)
 		{
 			return url?.StartsWith("seb-api://", StringComparison.OrdinalIgnoreCase) ?? false;
+		}
+
+		private bool IsCameraSnapshotUrl(string url)
+		{
+			return url?.StartsWith("http://localhost:18923/snapshot", StringComparison.OrdinalIgnoreCase) ?? false;
+		}
+
+		private IResourceHandler HandleCameraSnapshot()
+		{
+			var frame = CameraService?.GetCurrentFrame();
+
+			if (frame != null)
+			{
+				return CefSharp.ResourceHandler.FromStream(new MemoryStream(frame), "image/jpeg");
+			}
+
+			return CefSharp.ResourceHandler.FromString("");
 		}
 
 		private IResourceHandler HandleSebApiRequest(string url)

@@ -122,7 +122,7 @@ namespace SafeExamBrowser.Client
 			userInfo = new UserInfo(ModuleLogger(nameof(UserInfo)));
 
 			var applicationFactory = new ApplicationFactory(applicationMonitor, ModuleLogger(nameof(ApplicationFactory)), nativeMethods, processFactory, new Registry(ModuleLogger(nameof(Registry))));
-			var clipboard = new Clipboard(ModuleLogger(nameof(Clipboard)), nativeMethods);
+			var clipboard = new SafeExamBrowser.Monitoring.Clipboard(ModuleLogger(nameof(SafeExamBrowser.Monitoring.Clipboard)), nativeMethods);
 			var coordinator = new Coordinator();
 			var displayMonitor = new DisplayMonitor(ModuleLogger(nameof(DisplayMonitor)), nativeMethods, systemInfo);
 			var explorerShell = new ExplorerShell(ModuleLogger(nameof(ExplorerShell)), nativeMethods);
@@ -177,6 +177,7 @@ namespace SafeExamBrowser.Client
 			operations.Enqueue(new ApplicationsOperation(context, applicationFactory, fileSystemDialog, logger, messageBox, applicationMonitor, splashScreen, text));
 			operations.Enqueue(new DisplayMonitorOperation(context, displayMonitor, logger, taskbar));
 			operations.Enqueue(new LazyInitializationOperation(BuildShellOperation));
+			operations.Enqueue(new LazyInitializationOperation(BuildCameraStreamOperation));
 			operations.Enqueue(new LazyInitializationOperation(BuildBrowserOperation));
 			operations.Enqueue(new LazyInitializationOperation(BuildServerOperation));
 			operations.Enqueue(new LazyInitializationOperation(BuildProctoringOperation));
@@ -317,6 +318,13 @@ namespace SafeExamBrowser.Client
 			var operation = new MouseInterceptorOperation(context, logger, mouseInterceptor);
 
 			return operation;
+		}
+
+		private IOperation BuildCameraStreamOperation()
+		{
+			var cameraService = new SafeExamBrowser.SystemComponents.Camera.CameraService(ModuleLogger(nameof(SafeExamBrowser.SystemComponents.Camera.CameraService)));
+
+			return new CameraStreamOperation(context, ModuleLogger(nameof(CameraStreamOperation)), cameraService, uiFactory, messageBox, splashScreen);
 		}
 
 		private IOperation BuildProctoringOperation()

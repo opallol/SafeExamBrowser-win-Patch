@@ -112,6 +112,7 @@
     <Compile Include="Handlers\DragHandler.cs" />
     <Compile Include="Handlers\FocusHandler.cs" />
     <Compile Include="Handlers\KeyboardHandler.cs" />
+    <Compile Include="Handlers\PermissionHandler.cs" />
     <Compile Include="Handlers\RenderProcessMessageHandler.cs" />
     <Compile Include="Handlers\RequestHandler.cs" />
     <Compile Include="Handlers\ResourceHandler.cs" />
@@ -237,6 +238,10 @@
       <Project>{73724659-4150-4792-A94E-42F5F3C1B696}</Project>
       <Name>SafeExamBrowser.WindowsApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SafeExamBrowser.SystemComponents.Contracts\SafeExamBrowser.SystemComponents.Contracts.csproj">
+      <Project>{903129C6-E236-493B-9AD6-C6A57F647A3A}</Project>
+      <Name>SafeExamBrowser.SystemComponents.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\BlockedContent.html" />
@@ -248,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\Api.js" />
+    <EmbeddedResource Include="Content\CameraPolyfill.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\Clipboard.js" />

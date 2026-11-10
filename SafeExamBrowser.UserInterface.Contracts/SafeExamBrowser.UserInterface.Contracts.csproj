@@ -109,6 +109,7 @@
     <Compile Include="Windows\IExamSelectionDialog.cs" />
     <Compile Include="Windows\ILockScreen.cs" />
     <Compile Include="Windows\ICredentialsDialog.cs" />
+    <Compile Include="Windows\ICameraSelectionDialog.cs" />
     <Compile Include="Windows\IPasswordDialog.cs" />
     <Compile Include="Windows\Data\PasswordDialogResult.cs" />
     <Compile Include="Proctoring\IProctoringFinalizationDialog.cs" />

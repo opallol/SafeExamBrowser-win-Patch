@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 [assembly: InternalsVisibleTo("SafeExamBrowser.Browser.UnitTests")]
+[assembly: InternalsVisibleTo("SafeExamBrowser.Client")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("04e653f1-98e6-4e34-9dd7-7f2bc1a8b767")]

@@ -20,6 +20,7 @@ using SafeExamBrowser.Integrity.Contracts;
 using SafeExamBrowser.Proctoring.Contracts;
 using SafeExamBrowser.Server.Contracts;
 using SafeExamBrowser.Settings;
+using SafeExamBrowser.SystemComponents.Contracts.Camera;
 using SafeExamBrowser.UserInterface.Contracts;
 using SafeExamBrowser.UserInterface.Contracts.MessageBox;
 using SafeExamBrowser.UserInterface.Contracts.Shell;
@@ -51,6 +52,11 @@ namespace SafeExamBrowser.Client
 		/// The browser application.
 		/// </summary>
 		internal IBrowserApplication Browser { get; set; }
+
+		/// <summary>
+		/// The camera service used for camera streaming, or <c>default</c> if streaming is disabled. Ported from the 1.0.2 proctoring patch.
+		/// </summary>
+		internal ICameraService CameraService { get; set; }
 
 		/// <summary>
 		/// The client communication host.

@@ -17,6 +17,7 @@ namespace SafeExamBrowser.Browser.Content
 		private readonly IText text;
 
 		private string api;
+		private string cameraPolyfill;
 		private string clipboard;
 		private string pageZoom;
 
@@ -80,6 +81,23 @@ namespace SafeExamBrowser.Browser.Content
 
 				return html;
 			}
+		}
+
+		internal string LoadCameraPolyfill()
+		{
+			if (cameraPolyfill == default)
+			{
+				var assembly = Assembly.GetAssembly(typeof(ContentLoader));
+				var path = $"{typeof(ContentLoader).Namespace}.CameraPolyfill.js";
+
+				using (var stream = assembly.GetManifestResourceStream(path))
+				using (var reader = new StreamReader(stream))
+				{
+					cameraPolyfill = reader.ReadToEnd();
+				}
+			}
+
+			return cameraPolyfill;
 		}
 
 		internal string LoadClipboard()

@@ -56,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\Events\VolumeChangedEventHandler.cs" />
+    <Compile Include="Camera\CameraDevice.cs" />
+    <Compile Include="Camera\FrameCapturedEventArgs.cs" />
+    <Compile Include="Camera\ICameraService.cs" />
     <Compile Include="Audio\IAudio.cs" />
     <Compile Include="IFileSystem.cs" />
     <Compile Include="IMailClient.cs" />

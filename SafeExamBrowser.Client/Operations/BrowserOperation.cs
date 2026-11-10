@@ -45,6 +45,9 @@ namespace SafeExamBrowser.Client.Operations
 			logger.Info("Initializing browser...");
 			StatusChanged?.Invoke(TextKey.OperationStatus_InitializeBrowser);
 
+			// Mirror the proctoring stream-camera flag onto the browser settings so browser handlers can read it. Ported from the 1.0.2 proctoring patch.
+			Context.Settings.Browser.StreamCameraEnabled = Context.Settings.Proctoring.StreamCameraEnabled;
+
 			if (Context.Settings.Browser.EnableBrowser)
 			{
 				Context.Browser.Initialize();
