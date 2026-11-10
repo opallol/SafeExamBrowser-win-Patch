@@ -272,6 +272,20 @@
   <ItemGroup>
     <Resource Include="SafeExamBrowser.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Proctoring assets served by the local asset server (extracted at runtime by SimpleAssetLoader). Ported from the 1.0.2 build. -->
+    <EmbeddedResource Include="Assets\audio_bundle.mjs" />
+    <EmbeddedResource Include="Assets\audio_wasm_internal.js" />
+    <EmbeddedResource Include="Assets\audio_wasm_internal.wasm" />
+    <EmbeddedResource Include="Assets\bati.jpg" />
+    <EmbeddedResource Include="Assets\efficientdet_lite0.tflite" />
+    <EmbeddedResource Include="Assets\face_landmarker.task" />
+    <EmbeddedResource Include="Assets\kemenkeu.png" />
+    <EmbeddedResource Include="Assets\vision_bundle.mjs" />
+    <EmbeddedResource Include="Assets\vision_wasm_internal.js" />
+    <EmbeddedResource Include="Assets\vision_wasm_internal.wasm" />
+    <EmbeddedResource Include="Assets\yamnet.tflite" />
+  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

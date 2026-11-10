@@ -61,3 +61,6 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+# Proctoring assets (ported from 1.0.2) are served verbatim; keep bytes exact.
+SafeExamBrowser.Client/Assets/** binary
