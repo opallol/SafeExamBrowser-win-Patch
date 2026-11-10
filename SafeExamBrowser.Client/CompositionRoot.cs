@@ -179,6 +179,7 @@ namespace SafeExamBrowser.Client
 			operations.Enqueue(new LazyInitializationOperation(BuildShellOperation));
 			operations.Enqueue(new LazyInitializationOperation(BuildCameraStreamOperation));
 			operations.Enqueue(new LazyInitializationOperation(BuildBrowserOperation));
+			operations.Enqueue(new LazyInitializationOperation(BuildHiddenBrowserOperation));
 			operations.Enqueue(new LazyInitializationOperation(BuildServerOperation));
 			operations.Enqueue(new LazyInitializationOperation(BuildProctoringOperation));
 			operations.Enqueue(new ClipboardOperation(context, clipboard, logger));
@@ -318,6 +319,13 @@ namespace SafeExamBrowser.Client
 			var operation = new MouseInterceptorOperation(context, logger, mouseInterceptor);
 
 			return operation;
+		}
+
+		private IOperation BuildHiddenBrowserOperation()
+		{
+			context.HiddenBrowser = new SafeExamBrowser.Browser.HiddenBrowserManager(ModuleLogger(nameof(SafeExamBrowser.Browser.HiddenBrowserManager)));
+
+			return new HiddenBrowserOperation(context, ModuleLogger(nameof(HiddenBrowserOperation)));
 		}
 
 		private IOperation BuildCameraStreamOperation()

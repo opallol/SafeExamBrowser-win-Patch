@@ -91,6 +91,7 @@
     <Compile Include="Notifications\LogNotification.cs" />
     <Compile Include="Operations\BrowserOperation.cs" />
     <Compile Include="Operations\CameraStreamOperation.cs" />
+    <Compile Include="Operations\HiddenBrowserOperation.cs" />
     <Compile Include="Operations\ClipboardOperation.cs" />
     <Compile Include="Operations\DisplayMonitorOperation.cs" />
     <Compile Include="Operations\KeyboardInterceptorOperation.cs" />

@@ -104,6 +104,7 @@ namespace SafeExamBrowser.Client.Operations
 			}
 
 			ResourceHandler.CameraService = cameraService;
+			HiddenBrowserResourceHandler.CameraService = cameraService;
 			Context.CameraService = cameraService;
 
 			return OperationResult.Success;
@@ -113,6 +114,7 @@ namespace SafeExamBrowser.Client.Operations
 		{
 			cameraService?.StopCapture();
 			ResourceHandler.CameraService = null;
+			HiddenBrowserResourceHandler.CameraService = null;
 
 			return OperationResult.Success;
 		}

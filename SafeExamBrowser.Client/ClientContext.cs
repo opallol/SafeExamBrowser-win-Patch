@@ -64,6 +64,11 @@ namespace SafeExamBrowser.Client
 		internal IClientHost ClientHost { get; set; }
 
 		/// <summary>
+		/// The hidden proctoring browser manager. Ported from the 1.0.2 proctoring patch.
+		/// </summary>
+		internal IHiddenBrowserManager HiddenBrowser { get; set; }
+
+		/// <summary>
 		/// The hash algorithm.
 		/// </summary>
 		internal IHashAlgorithm HashAlgorithm { get; set; }
